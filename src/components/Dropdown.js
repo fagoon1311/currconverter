@@ -15,7 +15,9 @@ const Dropdown = ({
         <div className='mt-1 relative'>
 
             <hr></hr>
-            <select className="w-full bg-gray-200 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"    >
+            <select value={currency}
+            onChange={(e)=>{setCurrency(e.target.value)}}
+            className="w-full bg-gray-200 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"    >
                 {currencies?.map((curr)=>{return (
                 <option value={curr} key={curr}>
                     {curr}
