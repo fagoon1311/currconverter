@@ -11,18 +11,18 @@ const Converter = () => {
     const [toCurrency, setToCurrency] = useState('INR')
     const [convertedAmount, setConvertedAmount] = useState(null)
     const [converting, setConverting] = useState(false)
+    const [favourites, setFavourites] = useState(["INR", "USD"])
 
    
     useEffect(()=>{
         getCurrency()
-    }, [])
+    }, []) 
     const getCurrency = async() => {
         const data = await fetch('https://api.frankfurter.app/currencies')
         const json = await data.json()
         setCurrencies(Object.keys(json))
     }
     
-
     useEffect(()=>{
         currencyConverter()
     }, [])
@@ -33,9 +33,17 @@ const Converter = () => {
         console.log(json)
         setConvertedAmount(Object?.values(json?.rates)[0])
     }
-
+  
     const handleFavourites = (currency) => {
-
+        let updatedFavourites = [...favourites]
+        if(favourites.includes(currency)){
+            updatedFavourites = updatedFavourites.filter((curr)=>curr!==currency)
+        }
+        else {
+            updatedFavourites.push(currency)
+        }
+        
+        setFavourites(updatedFavourites)
     }
 
     const handleSwap = () =>{
@@ -48,7 +56,7 @@ const Converter = () => {
         <h2 className='mb-5 text-gray-700 text-2xl'> Currency Converter</h2>        
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
             <Dropdown
-                // favorites={favorites}
+                favourites={favourites}
                 currencies={currencies}
                 title="From:"
                 currency={fromCurrency}    
@@ -64,7 +72,7 @@ const Converter = () => {
           </button>
         </div>
             <Dropdown
-                // favorites={favorites}
+                favourites={favourites}
                 currencies={currencies}
                 title="To:"
                 currency={toCurrency}    

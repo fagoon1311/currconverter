@@ -10,14 +10,17 @@ const Dropdown = ({
     title
 }) => {
   return (
+
     <div>
         <label className='block text-sm font-medium text-gray-700'>{title}</label>
         <div className='mt-1 relative'>
 
-            <hr></hr>
             <select value={currency}
             onChange={(e)=>{setCurrency(e.target.value)}}
-            className="w-full bg-gray-200 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"    >
+            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"    >
+                
+                {favourites?.map((fav)=>{return(<option value={fav} key={fav}>{fav}</option>)})}
+                <hr></hr>
                 {currencies?.map((curr)=>{return (
                 <option value={curr} key={curr}>
                     {curr}
